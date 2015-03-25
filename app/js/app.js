@@ -1,3 +1,13 @@
 'use strict';
-var helper = require('./services/helper.service');
-console.log(helper());
+
+var angular = require('angular');
+
+// modules
+require('./modules/game');
+
+var app = angular.module('gamify', [
+    'game'
+    ]);
+app.run(function () {
+    console.log('Running App');
+})

@@ -1,0 +1,12 @@
+{
+  "generator-lean-mean": {
+    "appName": "gamify",
+    "scaffolds": [
+      "navbar"
+    ],
+    "css": [
+      "metroui",
+      "fontawesome"
+    ]
+  }
+}

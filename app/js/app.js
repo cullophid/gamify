@@ -3,7 +3,7 @@
 var angular = require('angular');
 
 // modules
-require('./modules/game');
+require('./components/game');
 
 var app = angular.module('gamify', [
     'game'

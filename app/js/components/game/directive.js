@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function () {
     return {
-        template: require('raw!./template.html'),
+        templateUrl: 'templates/game.html',
         replace: true,
         controller: 'gameController',
         controllerAs: 'game',

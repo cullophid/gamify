@@ -2,7 +2,7 @@
 require = require('../../require');
 var should = require('chai').should();
 var path = require('path');
-var GameController = require(path.join(process.cwd(), 'app/js/modules/game/controller'));
+var GameController = require(path.join(process.cwd(), 'app/js/components/game/controller'));
 
 describe('GameController', function () {
     var controller;

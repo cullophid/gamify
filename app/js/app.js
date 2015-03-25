@@ -2,12 +2,14 @@
 
 var angular = require('angular');
 
-// modules
+// components
 require('./components/game');
 
+//services
+require('./services');
+
 var app = angular.module('gamify', [
-    'game'
+    'game',
+    'services'
     ]);
-app.run(function () {
-    console.log('Running App');
-})
+app.run(require('./boot'));

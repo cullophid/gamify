@@ -12,4 +12,4 @@ var app = angular.module('gamify', [
     'game',
     'services'
     ]);
-app.run(require('./boot'));
+// app.run(require('./boot'));

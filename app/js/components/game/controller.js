@@ -1,6 +1,22 @@
 'use strict';
-module.exports = function () {
+var _ = require('lodash');
+module.exports = Controller;
+module.exports.$inject = ['taskService'];
+function Controller (taskService) {
     var self = this;
-    self.tasks = require('json!./tasks.json');
-    console.log(self.tasks);
+    //bindings
+    self.tasks = [];
+    self.updateTasks = updateTasks;
+
+    //init
+    updateTasks();
+
+    //functions
+    function updateTasks () {
+      return taskService.get()
+        .then(function (tasks) {
+          self.tasks = tasks;
+        });
+    }
+
 }

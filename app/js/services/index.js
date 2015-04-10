@@ -1,3 +1,6 @@
 'use strict';
+var angular = require('angular');
+
 angular.module('services', [])
-    .service('sessionService', require('./sessionService'));
+    .service('taskService', require('./taskService'))
+    .service('userService', require('./userService'));

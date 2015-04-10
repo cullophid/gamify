@@ -1,8 +1,0 @@
-[
-    {
-        "_id" : "1",
-        "name" : "House Chores",
-        "description" : "Not Fun",
-        "tasks" : [1, 2, 3]
-    }
-]

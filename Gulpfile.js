@@ -8,39 +8,48 @@ var reload = require('gulp-livereload');
 var server = require('./server');
 var mocha = require('gulp-mocha');
 //constants
-var SRC_DIR = 'app/';
-var DEST_DIR = 'app/build/';
+var SRCDIR = 'app/';
+var DESTDIR = 'www/';
 
 // BUILD
 gulp.task('webpack', function () {
-  return gulp.src(SRC_DIR + 'js/app.js')
-    .pipe(webpack({}))
+  return gulp.src(SRCDIR + 'js/app.js')
+    .pipe(webpack({
+      devtool: "#inline-source-map"
+    }))
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest(DEST_DIR))
+    .pipe(gulp.dest(DESTDIR))
     .pipe(reload());
 
 });
 
 gulp.task('less', function () {
-    return gulp.src(SRC_DIR + 'less/style.less')
+    return gulp.src(SRCDIR + 'less/style.less')
       .pipe(less())
-      .pipe(gulp.dest(DEST_DIR))
+      .pipe(gulp.dest(DESTDIR))
       .pipe(reload());
 });
-gulp.task('static',function () {
- return gulp.src([DEST_DIR + 'index.html', DEST_DIR + 'img/**/*'])
-   .pipe(reload());
+
+gulp.task('static', ['templates'], function () {
+  return gulp.src([SRCDIR + 'index.html'])
+    .pipe(gulp.dest(DESTDIR))
+    .pipe(reload());
 });
 
+gulp.task('templates', function () {
+  return gulp.src([SRCDIR + 'templates/**/*.html'])
+    .pipe(gulp.dest(DESTDIR + '/templates'));
+});
 
 gulp.task('build', ['less', 'webpack', 'static']);
 
 // TEST
 gulp.task('unittest',function () {
-    gulp.src('test/**/*.js')
+    return gulp.src(['spec/**/*.js', 'app/spec/**/*.js'])
       .pipe(mocha({reporter: 'spec'}));
 });
 gulp.task('test', ['unittest']);
+
 // RUN
 gulp.task('run', ['build'], function () {
   server.listen(process.env.PORT || 3000);
@@ -48,7 +57,8 @@ gulp.task('run', ['build'], function () {
 
 gulp.task('watch', ['run'], function () {
   reload.listen();
-  gulp.watch(SRC_DIR + 'js/**/*', ['unittest', 'webpack']);
-  gulp.watch(SRC_DIR + 'less/**/*.less', ['less']);
-  gulp.watch([DEST_DIR + 'index.html', DEST_DIR + 'img/**/*'], ['static']);
+  gulp.watch(['services/**/*.js', 'api/**/*.js', 'spec/**/*.js'], ['unittest']);
+  gulp.watch([SRCDIR + 'js/**/*', SRCDIR + 'spec/**/*'], ['unittest', 'webpack']);
+  gulp.watch(SRCDIR + 'less/**/*.less', ['less']);
+  gulp.watch([DESTDIR + 'index.html', DESTDIR + 'img/**/*', SRCDIR + 'templates/**/*'], ['static']);
 });

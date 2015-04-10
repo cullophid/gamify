@@ -2,10 +2,10 @@
 var expect = require('chai').expect;
 var _ = require('lodash');
 var path = require('path');
-var completeTask = require(path.join(process.cwd(), 'api/users/completeTask'));
+var tasks = require('../tasks');
 
 describe('Users', function () {
-  describe('completeTask', function () {
+  describe('tasks', function () {
     describe('pushTask', function () {
       it('should return a update object', function () {
         var task = {
@@ -13,7 +13,7 @@ describe('Users', function () {
           value: 10,
           description: 'description'
         };
-        return completeTask._pushTask(task)
+        return tasks._pushTask(task)
           .then(function (result) {
               expect(result).to.have.property('$push');
               expect(result.$push).to.have.property('tasks');

@@ -4,7 +4,9 @@ module.exports = function () {
         templateUrl: 'templates/game.html',
         replace: true,
         controller: 'gameController',
-        controllerAs: 'game',
-        restrict: 'E'
+        restrict: 'E',
+        scope : {
+          user: '='
+        }
     };
 };

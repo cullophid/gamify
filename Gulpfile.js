@@ -13,7 +13,7 @@ var DESTDIR = 'www/';
 
 // BUILD
 gulp.task('webpack', function () {
-  return gulp.src(SRCDIR + 'js/app.js')
+  return gulp.src(SRCDIR + 'js/main.js')
     .pipe(webpack({
       devtool: "#inline-source-map"
     }))
@@ -44,11 +44,19 @@ gulp.task('templates', function () {
 gulp.task('build', ['less', 'webpack', 'static']);
 
 // TEST
-gulp.task('unittest',function () {
-    return gulp.src(['spec/**/*.js', 'app/spec/**/*.js'])
-      .pipe(mocha({reporter: 'spec'}));
+gulp.task('spec',function () {
+    return gulp.src([
+      'app/js/**/spec/**/*.js',
+      'services/**/spec/**/*.js',
+      'api/**/spec/**/*.js'
+      ])
+      .pipe(mocha({reporter: 'dot'}));
 });
-gulp.task('test', ['unittest']);
+gulp.task('resttest', function () {
+  return gulp.src('test/**/*.js')
+    .pipe(mocha({reporter: 'dot'}));
+});
+gulp.task('test', ['spec', 'resttest']);
 
 // RUN
 gulp.task('run', ['build'], function () {
@@ -57,8 +65,8 @@ gulp.task('run', ['build'], function () {
 
 gulp.task('watch', ['run'], function () {
   reload.listen();
-  gulp.watch(['services/**/*.js', 'api/**/*.js', 'spec/**/*.js'], ['unittest']);
-  gulp.watch([SRCDIR + 'js/**/*', SRCDIR + 'spec/**/*'], ['unittest', 'webpack']);
+  gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
+  gulp.watch([SRCDIR + 'js/**/*', SRCDIR + 'spec/**/*'], ['spec', 'webpack']);
   gulp.watch(SRCDIR + 'less/**/*.less', ['less']);
   gulp.watch([DESTDIR + 'index.html', DESTDIR + 'img/**/*', SRCDIR + 'templates/**/*'], ['static']);
 });

@@ -1,22 +1,18 @@
 'use strict';
 var _ = require('lodash');
+var Promise = require('bluebird');
 var objectId = require('promised-mongo').ObjectId;
 var usersCollection = require('../../services/mongo').collection('users');
 
-module.exports = function (user, task) {
+exports.completeTask = function (user, task) {
   return Promise.resolve(task)
     .then(pushTask)
     .then(function (update) {
       console.log(transformObjectId(user));
       console.log(update);
-      return usersCollection.update(transformObjectId(user), update);
+      return usersCollection.update(user, update);
     });
 };
-
-function transformObjectId (query) {
-  query._id = objectId(query._id);
-  return query;
-}
 
 function pushTask (task) {
   var trimTask = _.curryRight(_.pick, 3)('_id', 'value');
@@ -37,4 +33,4 @@ function pushTask (task) {
 }
 
 // export for testing
-module.exports._pushTask = pushTask;
+exports._pushTask = pushTask;

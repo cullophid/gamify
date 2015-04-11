@@ -16,9 +16,9 @@ describe('Games', function () {
           expect(res.body.length).to.be.gte(1);
         })
         .end(done);
-    })
+    });
   });
-  
+
   describe('GET /api/users/:_id', function () {
     it('should return the specified user if exists', function (done) {
       request(app)
@@ -31,6 +31,6 @@ describe('Games', function () {
           expect(res.body).to.have.property('_id', '5525d60af9536b1250d10a61');
         })
         .end(done);
-    })
+    });
   });
-})
+});

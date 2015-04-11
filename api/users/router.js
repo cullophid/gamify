@@ -19,7 +19,7 @@ module.exports = function (router) {
         })
         .catch(next);
     });
-    
+
     router.post('/users', function (req, res, next) {
       users.create(req.body)
         .then(function (user) {

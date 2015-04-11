@@ -18,7 +18,7 @@ describe('Users', function () {
         .end(done);
     })
   });
-  
+
   describe('GET /api/users/:_id', function () {
     it('should return the specified user if exists', function (done) {
       request(app)
@@ -33,7 +33,7 @@ describe('Users', function () {
         .end(done);
     })
   });
-  describe('POST /api/users', function () {
+  describe.skip('POST /api/users', function () {
     it('create a new user', function (done) {
       request(app)
         .post('/api/users')

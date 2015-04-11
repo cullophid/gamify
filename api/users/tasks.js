@@ -5,31 +5,25 @@ var objectId = require('promised-mongo').ObjectId;
 var usersCollection = require('../../services/mongo').collection('users');
 
 exports.completeTask = function (user, task) {
-  return Promise.resolve(task)
-    .then(pushTask)
-    .then(function (update) {
-      console.log(transformObjectId(user));
-      console.log(update);
-      return usersCollection.update(user, update);
-    });
+  return usersCollection.update(user, pushTask(task));
 };
 
 function pushTask (task) {
   var trimTask = _.curryRight(_.pick, 3)('_id', 'value');
-
-  return Promise.resolve(task)
-    .then(trimTask)
-    .then(function (task) {
+  return _(task)
+    .thru(trimTask)
+    .thru(function (task) {
         task.completed = new Date().toString();
         return task;
     })
-    .then(function (task) {
+    .thru(function (task) {
       return {
         $push : {
           tasks : task
         }
       };
-    });
+    })
+    .value();
 }
 
 // export for testing

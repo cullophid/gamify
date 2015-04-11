@@ -2,8 +2,10 @@
 //modules
 var gulp = require('gulp');
 var webpack = require('gulp-webpack');
+var webpack = require('gulp-webpack');
 var rename = require('gulp-rename');
 var less = require('gulp-less');
+var sourcemaps = require('gulp-sourcemaps');
 var reload = require('gulp-livereload');
 var server = require('./server');
 var mocha = require('gulp-mocha');
@@ -25,7 +27,9 @@ gulp.task('webpack', function () {
 
 gulp.task('less', function () {
     return gulp.src(SRCDIR + 'less/style.less')
+      .pipe(sourcemaps.init())
       .pipe(less())
+      .pipe(sourcemaps.write())
       .pipe(gulp.dest(DESTDIR))
       .pipe(reload());
 });
@@ -56,7 +60,7 @@ gulp.task('resttest', function () {
   return gulp.src('test/**/*.js')
     .pipe(mocha({reporter: 'dot'}));
 });
-gulp.task('test', ['spec', 'resttest']);
+gulp.task('test', ['spec']);
 
 // RUN
 gulp.task('run', ['build'], function () {

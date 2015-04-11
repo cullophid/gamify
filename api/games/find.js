@@ -7,4 +7,4 @@ exports.find = function (query) {
 
 exports.findOne = function  (query) {
   return gamesCollection.findOne(query);
-}
+};

@@ -1,49 +1,23 @@
 'use strict';
 var _ = require('lodash');
 
-// monads();
-mongo();
+childProcess();
 
-
-function monads () {
-    var obj = {
-      key1: 'value1',
-      key2: 'value2',
-      key3: 'value3',
-      key4: 'value4'
-    };
-
-    _(obj)
-      .values()
-      .forEach(function (e) {
-          console.log(e);
-      }).value();
+function childProcess () {
+  var cp = require('child_process');
+  var child = cp.spawn('bin/www');
+  setTimeout(function () {
+    child.kill();
+  },10000);
 }
 
-
-function mongo () {
-  var db = require('./services/mongo');
-  var task = {
-      "name" : "House Chores",
-      "description" : "Not Fun",
-      "tasks" : [1, 2, 3]
-  };
-  insert(game)
-    .then(function (value) {
-      console.log(value);
+function  objectIds () {
+  var objectId = require('promised-mongo').ObjectId;
+  _(_.range(10))
+    .map(function () {
+        return objectId();
+        console.log('yo');
     })
-    .then(get)
-    .then(console.log);
-
-  function get () {
-    db.games.find()
-      .toArray()
-      .then(function (results) {
-        console.log(results);
-      });
-  }
-
-  function insert (doc) {
-      return db.games.insert(doc);
-  }
+    .tap(console.log)
+    .value();
 }

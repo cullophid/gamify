@@ -13,15 +13,13 @@ describe('Users', function () {
           value: 10,
           description: 'description'
         };
-        return tasks._pushTask(task)
-          .then(function (result) {
-              expect(result).to.have.property('$push');
-              expect(result.$push).to.have.property('tasks');
-              expect(result.$push.tasks).to.have.property('_id', 1);
-              expect(result.$push.tasks).to.have.property('value', 10);
-              expect(result.$push.tasks).to.have.property('completed')
-                .which.is.a('String');
-          });
+        var result = tasks._pushTask(task)
+        expect(result).to.have.property('$push');
+        expect(result.$push).to.have.property('tasks');
+        expect(result.$push.tasks).to.have.property('_id', 1);
+        expect(result.$push.tasks).to.have.property('value', 10);
+        expect(result.$push.tasks).to.have.property('completed')
+          .which.is.a('String');
 
       });
     });

@@ -5,7 +5,10 @@ var objectId = require('promised-mongo').ObjectId;
 var usersCollection = require('../../services/mongo').collection('users');
 
 exports.completeTask = function (user, task) {
-  return usersCollection.update(user, pushTask(task));
+  return usersCollection.update(user, pushTask(task))
+    .then(function () {
+      return usersCollection.findOne(user);
+    });
 };
 
 function pushTask (task) {

@@ -1,24 +1,50 @@
 'use strict';
 var _ = require('lodash');
 module.exports = Service;
-Service.$inject = ['$http'];
+Service.$inject = ['$rootScope','$http'];
 
-function Service ($http) {
+function Service ($root, $http) {
+  var currentUser;
   return {
     get: get,
-    calculateUserScore: calculateUserScore
+    calculateUserScore: calculateScore,
+    completeTask: completeTask
   };
 
+  //functions
   function get (userId) {
     return $http.get('/api/users/' + userId)
       .then(function (res) {
         return res.data;
-      });
+      })
+      .then(addScore)
+      .then(updateAndBroadcast);
   }
 
-  function calculateUserScore (user) {
+  function completeTask (task) {
+    return $http.post('/api/users/' + currentUser._id + '/completeTask', task)
+      .then(function (res) {
+          return res.data;
+      })
+      .then(addScore)
+      .then(updateAndBroadcast);
+  }
+
+  function addScore (user) {
+      return _.defaults({score: calculateScore(user)}, user);
+  }
+
+  function calculateScore (user) {
     return _.reduce(user.tasks, function (sum, task) {
           return sum + task.value;
     }, 0);
   }
+  function updateAndBroadcast (user) {
+    currentUser = user;
+    $root.$broadcast('user updated', user);
+    return user;
+  }
+
+
+
 }

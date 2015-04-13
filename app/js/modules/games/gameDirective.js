@@ -11,17 +11,19 @@ module.exports = function () {
     };
 };
 
-controller.$inject = ['$scope','gameService'];
-function controller ($scope, gameService) {
-    //init
-    updateGame('5525d60af9536b1250d10a61');
+controller.$inject = ['$scope','gamesService', 'usersService'];
+function controller ($scope, gamesService, usersService) {
+  //bidings
+  $scope.completeTask = completeTask;
 
-    //functions
-    function updateGame(gameId) {
-      return gameService.get(gameId)
-        .then(function (game) {
-          $scope.game = game;
-        });
-    }
+  //events
+  $scope.$on('game updated', function (event, game) {
+    $scope.game = game;
+  });
+
+  //functions
+  function completeTask (task) {
+    usersService.completeTask(task);
+  }
 
 }

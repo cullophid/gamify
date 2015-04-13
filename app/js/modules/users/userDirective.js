@@ -5,29 +5,13 @@ module.exports = function () {
         replace: true,
         controller: Controller,
         restrict: 'E',
-        scope : {
-        }
+        scope : {}
     };
 };
-Controller.$inject = ['$scope','usersService'];
-function Controller ($scope, usersService) {
+Controller.$inject = ['$scope'];
+function Controller ($scope) {
   //init
-  updateUser();
-
-  //functions
-    function updateUser () {
-      usersService.get('5527e0de97e5ded409557001')
-        .then(function (user) {
-          user.score = usersService.calculateUserScore(user);
-          return user;
-        })
-        .then(function (user) {
-          $scope.user = user;
-          updateUserScore();
-        });
-    }
-    function updateUserScore () {
-        if (!$scope.user) {return;}
-        $scope.user.score = usersService.calculateUserScore($scope.user);
-    }
+  $scope.$on('user updated', function (event, user) {
+      $scope.user = user;
+  });
 }

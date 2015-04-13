@@ -1,6 +1,6 @@
 'use strict';
 module.exports = service;
-service.$inject = ['$rootScope','$http'];
+service.$inject = ['$rootScope', '$http'];
 
 function service ($root, $http) {
   var currentGame;

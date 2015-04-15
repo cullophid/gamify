@@ -3,7 +3,15 @@ var _ = require('lodash');
 var games = require('./index');
 var middleware = require('./middleware');
 
+
 module.exports = function (router) {
+  router.post('/games/:_id/tasks', [middleware.processParams], function (req, res, next) {
+    games.createTask(req.params, req.body)
+      .then(function (game) {
+        res.status(201).send(game);
+      });
+  });
+  
   router.get('/games/:_id', [middleware.processParams], function (req, res, next) {
       games.findOne(req.query)
         .then(function (game) {

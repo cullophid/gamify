@@ -14,5 +14,27 @@
             <span class="badge">{{task.completed}}</span>
           </li>
       </ul>
+        <button class="btn btn-xs btn-success pull-right" ng-hide="showNewTaskPanel" ng-click="showNewTaskPanel = true">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        
+        <form class="well" ng-show="showNewTaskPanel" ng-submit="createTask(newTask)">
+          <button class="btn btn-xs btn-danger pull-right" ng-click="showNewTaskPanel = false">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+            <div class="form-group">
+              <label>name</label>
+              <input type="text" class="form-control" name="name" ng-model="newTask.name"/>
+            </div>
+            <div class="form-group">
+              <label>description</label>
+              <input type="text" class="form-control" name="description" ng-model="newTask.description"/>
+            </div>
+            <div class="form-group">
+              <label>value</label>
+              <input type="number" class="form-control" name="value" ng-model="newTask.value"/>
+            </div>
+            <input type="submit" class="btn btn-xs btn-success" value="Create Task">
+        </form>
   </div>
 </div>

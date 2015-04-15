@@ -1,7 +1,8 @@
 'use strict';
 var _ = require('lodash');
 
-childProcess();
+// childProcess();
+console.log(objectIds());
 
 function childProcess () {
   var cp = require('child_process');
@@ -13,11 +14,9 @@ function childProcess () {
 
 function  objectIds () {
   var objectId = require('promised-mongo').ObjectId;
-  _(_.range(10))
+  return _(_.range(10))
     .map(function () {
         return objectId();
-        console.log('yo');
     })
-    .tap(console.log)
     .value();
 }

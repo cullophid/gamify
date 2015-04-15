@@ -14,16 +14,24 @@ module.exports = function () {
 controller.$inject = ['$scope','gamesService', 'usersService'];
 function controller ($scope, gamesService, usersService) {
   //bidings
-  $scope.completeTask = completeTask;
-
+  $scope.completeTask = usersService.completeTask;
+  $scope.createTask = createTask;
+  
   //events
   $scope.$on('game updated', function (event, game) {
     $scope.game = game;
   });
+  
+  //init
+  gamesService.get('5525d60af9536b1250d10a61');
 
   //functions
-  function completeTask (task) {
-    usersService.completeTask(task);
+  
+  function createTask(task) {
+    return gamesService.createTask(task)
+      .then(function () {
+        $scope.showNewTaskPanel = false;
+        $scope.newTask = {};
+      });
   }
-
 }

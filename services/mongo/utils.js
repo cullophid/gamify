@@ -7,8 +7,10 @@ exports.convertToObjectId = convertToObjectId;
 exports.createPushStatement = createPushStatement;
 exports.addId = addId;
 
-function convertToObjectId(obj) {
-  return _.defaults({_id : objectId(obj._id)}, obj);
+function convertToObjectId(obj, prop) {
+  var dest = {};
+  dest[prop] = objectId(obj[prop]);
+  return _.defaults(dest, obj);
 }
 
 function createPushStatement (obj, list) {

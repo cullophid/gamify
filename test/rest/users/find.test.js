@@ -3,11 +3,13 @@ var expect = require('chai').expect;
 var app = require('../../../server');
 var request = require('supertest');
 
-describe('Games', function () {
-  describe('GET /api/games', function () {
-    it('should return a list of games', function (done) {
+var TESTUSERID = "5527e0de97e5ded409557001";
+
+describe('Users', function () {
+  describe('GET /api/users', function () {
+    it('should return a list of users', function (done) {
       request(app)
-        .get('/api/games')
+        .get('/api/users')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -22,13 +24,13 @@ describe('Games', function () {
   describe('GET /api/users/:_id', function () {
     it('should return the specified user if exists', function (done) {
       request(app)
-        .get('/api/games/5525d60af9536b1250d10a61')
+        .get('/api/users/' + TESTUSERID)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function (res) {
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('_id', '5525d60af9536b1250d10a61');
+          expect(res.body).to.have.property('_id', TESTUSERID);
         })
         .end(done);
     });

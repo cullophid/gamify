@@ -7,7 +7,7 @@ module.exports = function () {
         controller: controller,
         restrict: 'E',
         scope : {
-          achievements: '=data'
+          achievements: '=bind'
         }
     };
 };

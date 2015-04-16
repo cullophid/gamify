@@ -1,9 +1,10 @@
-<div class="">
-  <div class="">
+<div class="v-gutter container">
+  <user bind="$root.user"></user>
+  <div >
     <h1>{{game.name}}</h1>
   </div>
   <div class="">
-    <tasks data="game.tasks"></tasks>
-    <achievements data="game.achievements"></achievements>
+    <tasks bind="game.tasks"></tasks>
+    <achievements bind="game.achievements"></achievements>
   </div>
 </div>

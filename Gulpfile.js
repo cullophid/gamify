@@ -10,39 +10,31 @@ var reload = require('gulp-livereload');
 var server = require('./server');
 var mocha = require('gulp-spawn-mocha');
 //constants
-var SRCDIR = 'app/';
-var DESTDIR = 'www/';
+var PUBLICDIR = 'app/';
 
 // BUILD
 gulp.task('webpack', function () {
-  return gulp.src(SRCDIR + 'js/main.js')
+  return gulp.src(PUBLICDIR + 'js/main.js')
     .pipe(webpack({
       devtool: "#inline-source-map"
     }))
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest(DESTDIR))
+    .pipe(gulp.dest(PUBLICDIR))
     .pipe(reload());
 
 });
 
 gulp.task('less', function () {
-    return gulp.src(SRCDIR + 'less/style.less')
+    return gulp.src(PUBLICDIR + 'less/style.less')
       .pipe(sourcemaps.init())
       .pipe(less())
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(DESTDIR))
+      .pipe(gulp.dest(PUBLICDIR))
       .pipe(reload());
 });
 
-gulp.task('static', ['templates'], function () {
-  return gulp.src([SRCDIR + 'index.html'])
-    .pipe(gulp.dest(DESTDIR))
-    .pipe(reload());
-});
-
-gulp.task('templates', function () {
-  return gulp.src([SRCDIR + 'templates/**/*.html'])
-    .pipe(gulp.dest(DESTDIR + '/templates'));
+gulp.task('static'  , function () {
+  reload();
 });
 
 gulp.task('build', ['less', 'webpack', 'static']);
@@ -70,7 +62,7 @@ gulp.task('run', ['build'], function () {
 gulp.task('watch', ['run'], function () {
   reload.listen();
   gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
-  gulp.watch([SRCDIR + 'js/**/*', SRCDIR + 'spec/**/*'], ['spec', 'webpack']);
-  gulp.watch(SRCDIR + 'less/**/*.less', ['less']);
-  gulp.watch([DESTDIR + 'index.html', DESTDIR + 'img/**/*', SRCDIR + 'templates/**/*'], ['static']);
+  gulp.watch([PUBLICDIR + 'js/**/*', PUBLICDIR + 'spec/**/*'], ['spec', 'webpack']);
+  gulp.watch(PUBLICDIR + 'less/**/*.less', ['less']);
+  gulp.watch([PUBLICDIR + 'index.html', PUBLICDIR + 'img/**/*', PUBLICDIR + 'templates/**/*'], ['static']);
 });

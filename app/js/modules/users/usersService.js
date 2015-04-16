@@ -4,7 +4,6 @@ module.exports = Service;
 Service.$inject = ['$rootScope','$http'];
 
 function Service ($root, $http) {
-  var currentUser;
   return {
     get: get,
     calculateUserScore: calculateScore,
@@ -22,7 +21,7 @@ function Service ($root, $http) {
   }
 
   function completeTask (task) {
-    return $http.post('/api/users/' + currentUser._id + '/completeTask', task)
+    return $http.post('/api/users/' + $root.user._id + '/completeTask', task)
       .then(function (res) {
           return res.data;
       })
@@ -40,11 +39,9 @@ function Service ($root, $http) {
     }, 0);
   }
   function updateAndBroadcast (user) {
-    currentUser = user;
+    $root.user = user;
     $root.$broadcast('user updated', user);
     return user;
   }
-
-
 
 }

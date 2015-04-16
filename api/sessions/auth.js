@@ -6,8 +6,8 @@ var usersCollection = mongo.collection('users');
 var userTemplate = {
   firstname: "",
   lastname: "",
-  tasks: "",
-  achievements: ""
+  tasks: [],
+  achievements: []
 };
 
 exports.auth = function (user) {

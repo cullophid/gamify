@@ -7,7 +7,7 @@ module.exports = function () {
         controller: controller,
         restrict: 'E',
         scope : {
-          tasks: '=data'
+          tasks: '=bind'
         }
     };
 };

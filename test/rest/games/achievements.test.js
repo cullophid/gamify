@@ -10,13 +10,13 @@ describe('Games', function () {
       var achievement = require('./data/achievement.json');
       achievement.description = "achievement" + _.random(0, 999999);
       request(app)
-        .post('/api/games/552eec78e8defd5d7185667a/achievements')
+        .post('/api/games/55302789e8defd5d7185667b/achievements')
         .send(achievement)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(201)
         .expect(function (res) {
-          expect(res.body).to.have.property('_id', '552eec78e8defd5d7185667a');
+          expect(res.body).to.have.property('_id', '55302789e8defd5d7185667b');
           var ach = _.find(res.body.achievements, function (e) {
               return e.description === achievement.description;
             });

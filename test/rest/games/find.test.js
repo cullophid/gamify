@@ -22,13 +22,13 @@ describe('Games', function () {
   describe('GET /api/games/:_id', function () {
     it('should return the specified game if exists', function (done) {
       request(app)
-        .get('/api/games/552eec78e8defd5d7185667a')
+        .get('/api/games/55302789e8defd5d7185667b')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function (res) {
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('_id', '552eec78e8defd5d7185667a');
+          expect(res.body).to.have.property('_id', '55302789e8defd5d7185667b');
         })
         .end(done);
     });

@@ -26,9 +26,9 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #fff;
+@body-bg:               @brand-primary;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            white;
 
 //** Global textual link color.
 @link-color:            @brand-primary;
@@ -66,7 +66,7 @@
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
-@headings-font-weight:    500;
+@headings-font-weight:    100;
 @headings-line-height:    1.1;
 @headings-color:          inherit;
 
@@ -659,14 +659,14 @@
 //##
 
 //** Background color on `.list-group-item`
-@list-group-bg:                 #fff;
+@list-group-bg:                 rgba(0, 0, 0, 0.2);
 //** `.list-group-item` border color
-@list-group-border:             #ddd;
+@list-group-border:             transparent;
 //** List group border radius
 @list-group-border-radius:      @border-radius-base;
 
 //** Background color of single list items on hover
-@list-group-hover-bg:           #f5f5f5;
+@list-group-hover-bg:           transparent;
 //** Text color of active list items
 @list-group-active-color:       @component-active-color;
 //** Background color of active list items
@@ -683,16 +683,16 @@
 //** Text color for content within disabled list items
 @list-group-disabled-text-color: @list-group-disabled-color;
 
-@list-group-link-color:         #555;
+@list-group-link-color:         white;
 @list-group-link-hover-color:   @list-group-link-color;
-@list-group-link-heading-color: #333;
+@list-group-link-heading-color: white;
 
 
 //== Panels
 //
 //##
 
-@panel-bg:                    #fff;
+@panel-bg:                    @brand-primary;
 @panel-body-padding:          15px;
 @panel-heading-padding:       10px 15px;
 @panel-footer-padding:        @panel-heading-padding;
@@ -750,7 +750,7 @@
 //
 //##
 
-@well-bg:                     #f5f5f5;
+@well-bg:                     rgba(0, 0, 0, 0.2);
 @well-border:                 darken(@well-bg, 7%);
 
 

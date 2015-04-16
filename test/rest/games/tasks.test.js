@@ -10,13 +10,13 @@ describe('Games', function () {
       var task = require('./data/task.json');
       task.name = "test" + _.random(0, 999999);
       request(app)
-        .post('/api/games/552eec78e8defd5d7185667a/tasks')
+        .post('/api/games/55302789e8defd5d7185667b/tasks')
         .send(task)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(201)
         .expect(function (res) {
-          expect(res.body).to.have.property('_id', '552eec78e8defd5d7185667a');
+          expect(res.body).to.have.property('_id', '55302789e8defd5d7185667b');
           var t =_.find(res.body.tasks, function (e) {
             return e.name === task.name && e._id;
           });

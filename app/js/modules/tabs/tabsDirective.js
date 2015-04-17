@@ -9,6 +9,7 @@ module.exports = function () {
     templateUrl : '/templates/tabs.html',
       transclude : true,
       restrict: 'E',
+      
       scope : {
          active : '='
       },
@@ -26,16 +27,8 @@ module.exports = function () {
       mode:'horizontal',
       preventLinksPropagation : true,
       preventLinks : true,
-      simulateTouch : false
+      simulateTouch : true
       //etc..
-    });
-    scope.$watch('active', function () {
-      tabsSwiper.swipeTo(scope.active, undefined, false);
-    });
-    tabsSwiper.addCallback('SlideChangeStart', function(){
-      scope.$apply(function () {
-        scope.active = tabsSwiper.activeIndex;
-      });
     });
   }
 };

@@ -23,7 +23,6 @@
       &:hover,
       &:focus {
         text-decoration: none;
-        background-color: @nav-link-hover-bg;
       }
     }
 
@@ -111,6 +110,21 @@
   }
 }
 
+.nav-links {
+  > li {
+    float: left;
+
+    // Links rendered as pills
+    + li {
+      margin-left: 2px;
+    }
+
+    // Active state
+    &.active>a {
+      text-shadow: 2px 2px 3px black;
+    }
+  }
+}
 
 // Pills
 // -------------------------

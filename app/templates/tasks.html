@@ -1,4 +1,4 @@
-<div class="clearfix col-sm-8 col-sm-offset-2">
+<div class="clearfix">
   <ul class="list-group">
     <li ng-repeat="task in tasks" class="list-group-item clearfix">
       <button class="btn btn-xs btn-success pull-right" ng-click="$parent.completeTask(task)">
@@ -30,9 +30,9 @@
       </div>
       <div class="btn-group pull-right">
         <button class="btn btn-danger" ng-click="showNewTaskPanel = false">
-          <span class=""> cancel</span>
+          <span class="">cancel</span>
         </button>
-          <input type="submit" class="btn btn-success" value=" Create Task">
+          <input type="submit" class="btn btn-success" value="Create Task">
       </div>
   </form>
 </div>

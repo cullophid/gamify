@@ -1,21 +1,23 @@
-<div class="v-gutter container-fluid">
+<div class="v-gutter">
   <div class="">
     <h1>{{game.name}}</h1>
   </div>
-  <ul class="nav nav-pills">
-    <li>
-      <a href="#tasks"><h2>Tasks</h2></a>
-    </li>
-    <li>
-      <a href="#achievements"><h2>achievements</h2></a>
-    </li>
-  </ul>
-  <tabs>
-    <tab>
-      <tasks bind="game.tasks"></tasks>
-    </tab>
-    <tab>
-      <achievements bind="game.achievements"></achievements>
-    </tab>
-  </tabs>
+  <div class="col-md-8 col-md-offset-2">
+    <ul class="nav nav-links">
+      <li ng-class="{active: (activeTab === 0)}">
+        <a href="#tasks" class="h2">Tasks</a>
+      </li>
+      <li ng-class="{active: (activeTab === 1)}">
+        <a href="#achievements" class="h2">achievements</a>
+      </li>
+    </ul>
+    <tabs active="activeTab">
+      <tab>
+        <tasks bind="game.tasks" class=""></tasks>
+      </tab>
+      <tab>
+        <achievements bind="game.achievements"></achievements>
+      </tab>
+    </tabs>
+  </div>
 </div>

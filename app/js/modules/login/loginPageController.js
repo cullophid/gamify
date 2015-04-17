@@ -14,7 +14,7 @@ function controller ($scope, sessionService, $state) {
     sessionService.auth(credentials)
       .then(function (user) {
         console.log(user);
-        $state.go('game', {gameId: '5525d60af9536b1250d10a61'})
+        $state.go('home.game', {gameId: '5525d60af9536b1250d10a61'})
       });
 
   }

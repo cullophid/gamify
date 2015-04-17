@@ -7,14 +7,29 @@ function router ($stateProvider, $urlRouterProvider) {
   //
   // Now set up the states
   $stateProvider
-    .state('game', {
+    .state('home', {
+      views: {
+        main : {
+          templateUrl: "templates/home.html"
+        }
+      }
+    })
+    .state('home.game', {
       url: "/games/:gameId",
-      templateUrl: "templates/game.html",
-      controller: 'gamePageController'
+      views : {
+        page: {
+          templateUrl: "templates/game.html",
+          controller: 'gamePageController'
+        }
+      }
     })
     .state('login', {
       url: "/login",
-      templateUrl: "templates/login.html",
-      controller: 'loginPageController'
+      views : {
+        main: {
+          templateUrl: "templates/login.html" ,
+          controller: 'loginPageController'
+        }
+      }
     });
 }

@@ -10,7 +10,8 @@ var app = angular.module('gamify', [
     require('../session'),
     require('../login'),
     require('../games'),
-    require('../users')
+    require('../users'),
+    require('../tabs')
     ]);
 
 app.config(require('../router'));

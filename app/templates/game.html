@@ -1,10 +1,21 @@
-<div class="v-gutter container">
-  <user bind="$root.user"></user>
-  <div >
+<div class="v-gutter container-fluid">
+  <div class="">
     <h1>{{game.name}}</h1>
   </div>
-  <div class="">
-    <tasks bind="game.tasks"></tasks>
-    <achievements bind="game.achievements"></achievements>
-  </div>
+  <ul class="nav nav-pills">
+    <li>
+      <a href="#tasks"><h2>Tasks</h2></a>
+    </li>
+    <li>
+      <a href="#achievements"><h2>achievements</h2></a>
+    </li>
+  </ul>
+  <tabs>
+    <tab>
+      <tasks bind="game.tasks"></tasks>
+    </tab>
+    <tab>
+      <achievements bind="game.achievements"></achievements>
+    </tab>
+  </tabs>
 </div>

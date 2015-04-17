@@ -7,7 +7,8 @@ var angular = require('angular');
 
 var app = angular.module('gamify', [
     require('../games'),
-    require('../users')
+    require('../users'),
+    require('../tabs')
     ]);
 
 app.controller('appController', require('./appController'));

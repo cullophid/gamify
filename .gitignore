@@ -7,9 +7,12 @@ pids
 *.pid
 *.seed
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-app/build/bundle.js
-app/build/style.css
+#build
+www/templates/
+www/bundle.js
+www/style.css
+www/index.html
+
 
 # Dependency directory
 node_modules

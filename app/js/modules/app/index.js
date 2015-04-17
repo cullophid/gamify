@@ -6,10 +6,12 @@ var angular = require('angular');
 
 
 var app = angular.module('gamify', [
+    require('angular-ui-router'),
+    require('../session'),
+    require('../login'),
     require('../games'),
     require('../users'),
     require('../tabs')
     ]);
 
-app.controller('appController', require('./appController'));
-// app.run(require('./boot'));
+app.config(require('../router'));

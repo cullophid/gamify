@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var app = require('../../../server');
 var request = require('supertest');
 
-var TESTUSERID = "5527e0de97e5ded409557001";
+var TESTUSERID = "5530505be8defd5d7185667c";
 
 describe('Users', function () {
   describe('GET /api/users', function () {
@@ -31,21 +31,6 @@ describe('Users', function () {
         .expect(function (res) {
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('_id', TESTUSERID);
-        })
-        .end(done);
-    });
-  });
-  describe.skip('POST /api/users', function () {
-    it('create a new user', function (done) {
-      request(app)
-        .post('/api/users')
-        .send(require('./testUser.json'))
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(201)
-        .expect(function (res) {
-          expect(res.body).to.have.keys(['_id', 'firstname', 'lastname', 'email', 'tasks']);
-          expect(res.body).to.have.property('firstname', 'Test');
         })
         .end(done);
     });

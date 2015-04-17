@@ -2,7 +2,8 @@
 var _ = require('lodash');
 
 // childProcess();
-console.log(objectIds());
+// console.log(objectIds());
+lodash();
 
 function childProcess () {
   var cp = require('child_process');
@@ -19,4 +20,12 @@ function  objectIds () {
         return objectId();
     })
     .value();
+}
+
+function lodash () {
+    var user = {
+      email: 'SDFJsadflkj',firstname : 'HEllo'
+    }
+    // _("HEY")
+    console.log(_.method('toLowerCase')('HELLO world'));
 }

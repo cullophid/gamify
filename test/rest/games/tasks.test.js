@@ -5,24 +5,28 @@ var app = require('../../../server');
 var request = require('supertest');
 
 describe('Games', function () {
-  describe.skip('POST /api/games/:_id/task', function () {
+  describe('POST /api/games/:_id/task', function () {
     it('should add a new task if the task is valid', function (done) {
       var task = require('./data/task.json');
       task.name = "test" + _.random(0, 999999);
       request(app)
-        .post('/api/games/5525d60af9536b1250d10a61/tasks')
+        .post('/api/games/55302789e8defd5d7185667b/tasks')
         .send(task)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(201)
         .expect(function (res) {
-          expect(res.body).to.have.keys(['_id', 'name', 'description', 'tasks']);
-          expect(res.body).to.have.property('_id', '5525d60af9536b1250d10a61');
-          expect(_.any(res.body.tasks, function (e) {
+          expect(res.body).to.have.property('_id', '55302789e8defd5d7185667b');
+          var t =_.find(res.body.tasks, function (e) {
             return e.name === task.name && e._id;
-          })).to.be.true;
+          });
+          expect(t).to.be.ok;
+          expect(t).to.have.property('_id');
+          expect(t).to.have.property('name', task.name);
+          expect(t).to.have.property('description', task.description);
+          expect(t).to.have.property('value', task.value);
         })
-        .end(done);  
+        .end(done);
     });
   });
 });

@@ -25,7 +25,7 @@ describe('Session', function () {
             'lastname',
             'tasks',
             'achievements']);
-          expect(user).to.have.property('email', body.email);
+          expect(user).to.have.property('email', body.email.toLowerCase());
         })
         .end(done);
     });
@@ -42,7 +42,7 @@ describe('Session', function () {
         .expect(function (res) {
           var  user = res.body;
           expect(user).to.have.keys(['_id', 'email','firstname', 'lastname', 'tasks', 'achievements']);
-          expect(user).to.have.property('email', body.email);
+          expect(user).to.have.property('email', body.email.toLowerCase());
         })
         .end(done);
     });

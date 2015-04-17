@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var app = require('../../../server');
 var request = require('supertest');
 
-var TESTUSERID = "5527e0de97e5ded409557001";
+var TESTUSERID = "5530505be8defd5d7185667c";
 
 describe('Users', function () {
   describe('GET /api/users', function () {

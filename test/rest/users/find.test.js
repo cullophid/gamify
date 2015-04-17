@@ -3,8 +3,7 @@ var expect = require('chai').expect;
 var app = require('../../../server');
 var request = require('supertest');
 
-var TESTUSERID = "5530505be8defd5d7185667c";
-
+var TESTUSERID = "55317a2ae8defd5d7185667d";
 describe('Users', function () {
   describe('GET /api/users', function () {
     it('should return a list of users', function (done) {

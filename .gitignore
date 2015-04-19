@@ -13,6 +13,9 @@ www/bundle.js
 www/style.css
 www/index.html
 
+#local config
+config/local*
+
 
 # Dependency directory
 node_modules

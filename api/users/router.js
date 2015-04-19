@@ -4,7 +4,6 @@ var middleware = require('./middleware');
 
 module.exports = function (router) {
     router.get('/users/:_id', [middleware.processParams], function (req, res, next) {
-        console.log(req.params);
         users.findOne(req.params)
           .then(function (user) {
               return res.send(user);

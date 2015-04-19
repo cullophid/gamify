@@ -5,7 +5,8 @@ var gamesCollection = mongo.collection('games');
 
 var prepareForInsert = _.flow(
   mongo.utils.addId,
-  _.partialRight(mongo.utils.convertToObjectId, 'task'), _.partialRight(mongo.utils.createPushStatement,'achievements'));
+  _.partialRight(mongo.utils.convertPropertiesToObjectId, 'task'), _.partialRight(mongo.utils.createPushStatement,'achievements'));
+exports._prepareForInsert = prepareForInsert;
 
 exports.createAchievement = function  (game, achievement) {
   return gamesCollection.update(game, prepareForInsert(achievement))

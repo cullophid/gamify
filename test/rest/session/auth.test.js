@@ -29,7 +29,7 @@ describe('Session', function () {
         })
         .end(done);
     });
-    
+
     it('should create a new user if the email is not recognised', function (done) {
       var body = {
         email: 'user' + _.random(0, 999999) + '@example.com'

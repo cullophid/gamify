@@ -5,10 +5,10 @@
   <div class="col-md-8 col-md-offset-2">
     <ul class="nav nav-links">
       <li ng-class="{active: (activeTab === 0)}">
-        <a href="#tasks" class="h4">Tasks</a>
+        <a ng-click="activeTab = 0" class="h4 a">Tasks</a>
       </li>
       <li ng-class="{active: (activeTab === 1)}">
-        <a href="#achievements" class="h4">achievements</a>
+        <a ng-click="activeTab = 1" class="h4 a">achievements</a>
       </li>
     </ul>
   </div>

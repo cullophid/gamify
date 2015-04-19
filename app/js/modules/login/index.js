@@ -1,6 +1,6 @@
 var angular = require('angular');
 
 angular.module('login', [])
-  .controller('loginPageController', require('./loginPageController'));
+  .controller('loginController', require('./loginController'));
 
 module.exports = 'login';

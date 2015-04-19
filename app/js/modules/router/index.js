@@ -10,7 +10,17 @@ function router ($stateProvider, $urlRouterProvider) {
     .state('home', {
       views: {
         main : {
+          controller: 'homeController',
           templateUrl: "templates/home.html"
+        }
+      }
+    })
+    .state('home.gameslist', {
+      url: "/games",
+      views : {
+        page: {
+          templateUrl: "templates/gameslist.html",
+          controller: 'gamesListController'
         }
       }
     })
@@ -19,7 +29,7 @@ function router ($stateProvider, $urlRouterProvider) {
       views : {
         page: {
           templateUrl: "templates/game.html",
-          controller: 'gamePageController'
+          controller: 'gameController'
         }
       }
     })
@@ -28,7 +38,7 @@ function router ($stateProvider, $urlRouterProvider) {
       views : {
         main: {
           templateUrl: "templates/login.html" ,
-          controller: 'loginPageController'
+          controller: 'loginController'
         }
       }
     });

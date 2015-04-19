@@ -21,7 +21,6 @@ function prepUser (user) {
   return _(user)
     .pick('email')
     .mapValues(_.method('toLowerCase'))
-    .tap(console.log)
     .defaults(user)
     .value();
 }

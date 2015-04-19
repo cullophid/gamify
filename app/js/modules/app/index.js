@@ -15,3 +15,4 @@ var app = angular.module('gamify', [
     ]);
 
 app.config(require('../router'));
+app.controller('homeController', require('./homeController'));

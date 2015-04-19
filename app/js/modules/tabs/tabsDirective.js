@@ -31,6 +31,10 @@ module.exports = function () {
       //etc..
     });
 
+    scope.$watch('active', function (active) {
+      tabsSwiper.slideTo(active);
+    });
+
     tabsSwiper.on('onSlideChangeEnd', function (swiper) {
       scope.$apply(function () {
         scope.active = swiper.activeIndex;

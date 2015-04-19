@@ -9,6 +9,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var reload = require('gulp-livereload');
 var server = require('./server');
 var mocha = require('gulp-spawn-mocha');
+var mongo = require('./services/mongo');
 //constants
 var PUBLICDIR = 'app/';
 
@@ -49,10 +50,23 @@ gulp.task('spec',function () {
       .pipe(mocha({reporter: 'dot'}));
 });
 gulp.task('resttest', function () {
-  return gulp.src('test/**/*.js')
+  return gulp.src(['test/setup.js','test/**/*.js'])
     .pipe(mocha({reporter: 'dot'}));
 });
 gulp.task('test', ['spec', 'resttest']);
+
+
+gulp.task('cleanDB', function (done) {
+  mongo
+    .collection('users')
+    .remove({email: {$regex: /\@example\.com/}});
+  mongo
+    .collection('games')
+    .remove({name: 'Test Game'})
+    .then(function () {
+      done();
+    });
+});
 
 // RUN
 gulp.task('run', ['build'], function () {

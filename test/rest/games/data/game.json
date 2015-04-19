@@ -2,5 +2,6 @@
   "name" : "Test Game",
   "description" : "",
   "tasks": [],
-  "achievements" : []
+  "achievements" : [],
+  "users": ["5534058b78e4618fe6997782"]
 }

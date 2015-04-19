@@ -2,8 +2,9 @@
 var _ = require('lodash');
 
 // childProcess();
-// console.log(objectIds());
-lodash();
+console.log(objectIds());
+// lodash();
+// isObjectId();
 
 function childProcess () {
   var cp = require('child_process');
@@ -28,4 +29,11 @@ function lodash () {
     }
     // _("HEY")
     console.log(_.method('toLowerCase')('HELLO world'));
+}
+
+function isObjectId () {
+  var objectId = require('promised-mongo').ObjectId;
+  var a = objectId();
+
+  console.log(_.keys(a))
 }

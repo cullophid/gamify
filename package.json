@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm build && node node_modules/.bin/gulp run",
-    "test": "npm prune && node node_modules/.bin/gulp test"
+    "start": "NODE_ENV='production' && npm build && node node_modules/.bin/gulp run",
+    "test": "NODE_ENV='testing' && npm prune && node node_modules/.bin/gulp test",
+    "watch": "NODE_ENV='develop' && node node_modules/.bin/gulp watch"
   },
   "dependencies": {
     "angular": "^1.3.15",

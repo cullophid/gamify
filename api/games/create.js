@@ -1,22 +1,31 @@
 'use strict';
 var _ = require('lodash');
-var gamesCollection = require('../../services/mongo').collection('games');
-exports.create = function (game) {
+var mongo = require('../../services/mongo');
+var objectId = mongo.objectId;
+var gamesCollection = mongo.collection('games');
+var gameDefaults = {
+  tasks:[],
+  achievements: [],
+  description : "",
+  users: []
+};
 
-  return gamesCollection.insert(polyfillGame(game))
+exports.create = function (game) {
+  return gamesCollection.insert(prepGameForInsert(game))
     .then(function (game) {
       return gamesCollection.findOne(_.pick(game, '_id'))
         .then(function (game) {
-          console.log(game);
           return game;
-        })
+        });
     });
-
-    function polyfillGame (game) {
-      return _.defaults(game, {
-        tasks:[],
-        achievements: [],
-        description : ""
-      });
-    }
 };
+exports._prepGameForInsert = prepGameForInsert;
+function prepGameForInsert (game) {
+  return _(game)
+    .pick('users')
+    .mapValues(function (users) {
+      return _.map(users, objectId);
+    })
+    .defaults(game, gameDefaults)
+    .value();
+}

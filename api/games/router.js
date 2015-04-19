@@ -27,7 +27,7 @@ module.exports = function (router) {
   });
 
 
-  router.get('/games', function (req, res, next) {
+  router.get('/games', [middleware.processQuery], function (req, res, next) {
       games.find(req.query)
         .then(function (games) {
           res.send(games);

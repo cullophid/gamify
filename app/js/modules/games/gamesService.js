@@ -1,11 +1,14 @@
 'use strict';
+var _ = require('lodash');
 module.exports = service;
-service.$inject = ['$rootScope', '$http'];
+service.$inject = ['$rootScope', '$q', '$http'];
 
-function service ($root, $http) {
+function service ($root, $q, $http) {
   var currentGame;
   return {
     get: get,
+    getList: getList,
+    createGame: createGame,
     createTask: createTask
   };
 
@@ -25,11 +28,29 @@ function service ($root, $http) {
       })
       .then(updateAndBroadcast);
   }
-  
+
   function updateAndBroadcast (game) {
     currentGame = game;
     $root.$broadcast('game updated', game);
     return game;
   }
-  
+
+  function getList () {
+      return $http.get('/api/games?users=' + $root.user._id)
+        .then(function (res) {
+            return res.data;
+        });
+  }
+
+
+  function createGame (game) {
+      return $http.post('/api/games', prepGame(game))
+        .then(function (res) {
+          return res.data;
+        });
+     function prepGame (game) {
+       return _.defaults({users: [$root.user._id]}, game);
+     }
+  }
+
 }

@@ -9,15 +9,15 @@ function controller ($scope, $state, $stateParams, gamesService) {
   $scope.$on('game updated', function (event, game) {
     $scope.game = game;
   });
+  
+  $scope.$on('user', function () {
+    updateGame();
+  });
 
+  updateGame();
 
-  //init
-  init();
-
-  function init () {
-    if (!$scope.$root.user) {
-      return $state.go('login');
-    }
+  function updateGame () {
+    if (!$scope.$root.user) {return;}
     gamesService.get($stateParams.gameId);
   }
 }

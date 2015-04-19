@@ -14,5 +14,5 @@ var app = angular.module('gamify', [
     require('../tabs')
     ]);
 
-app.config(require('../router'));
 app.controller('homeController', require('./homeController'));
+app.config(require('../router'));

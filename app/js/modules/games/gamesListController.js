@@ -5,6 +5,10 @@ controller.$inject = ['$scope', '$state', '$stateParams', 'gamesService'];
 
 function controller ($scope, $state, $stateParams, gamesService) {
   $scope.createNewGame = createNewGame;
+
+  $scope.$on('user', function () {
+    updateGamesList();
+  });
   //init
   updateGamesList();
 

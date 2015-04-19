@@ -3,14 +3,14 @@ module.exports = router;
 router.$inject = ['$stateProvider', '$urlRouterProvider'];
 function router ($stateProvider, $urlRouterProvider) {
   // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/login");
+  $urlRouterProvider.otherwise("/games");
   //
   // Now set up the states
   $stateProvider
     .state('home', {
       views: {
         main : {
-          controller: 'homeController',
+          controller: "homeController",
           templateUrl: "templates/home.html"
         }
       }

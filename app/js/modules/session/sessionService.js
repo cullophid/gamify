@@ -2,12 +2,13 @@
 
 var _ = require('lodash');
 module.exports = service;
-service.$inject = ['$http', '$rootScope', 'usersService'];
+service.$inject = ['$q', '$http', '$rootScope', 'usersService'];
 
-function service ($http, $rootScope, usersService) {
+function service ($q, $http, $rootScope, usersService) {
 
   return {
-    auth : auth
+    auth : auth,
+    get: get
   };
 
   function auth (credentials) {
@@ -16,11 +17,20 @@ function service ($http, $rootScope, usersService) {
         return res.data;
       })
       .then(function (user) {
-        return _.defaults({score: usersService.calculateUserScore(user)}, user);
+        return _.defaults({score: usersService.calculateScore(user)}, user);
       })
       .then(function (user) {
         $rootScope.user = user;
         return user;
+      });
+  }
+  function get () {
+    return $http.get('/api/session')
+      .then(function (res) {
+        if(res.data && res.data.user) {
+          return res.data;
+        }
+        return $q.reject('Session not found');
       });
   }
 

@@ -5,20 +5,9 @@ Service.$inject = ['$rootScope','$http'];
 
 function Service ($root, $http) {
   return {
-    get: get,
-    calculateUserScore: calculateScore,
+    calculateScore: calculateScore,
     completeTask: completeTask
   };
-
-  //functions
-  function get (userId) {
-    return $http.get('/api/users/' + userId)
-      .then(function (res) {
-        return res.data;
-      })
-      .then(addScore)
-      .then(updateAndBroadcast);
-  }
 
   function completeTask (task) {
     return $http.post('/api/users/' + $root.user._id + '/completeTask', task)
@@ -35,7 +24,7 @@ function Service ($root, $http) {
 
   function calculateScore (user) {
     return _.reduce(user.tasks, function (sum, task) {
-          return sum + task.value;
+      return sum + task.value;
     }, 0);
   }
   function updateAndBroadcast (user) {

@@ -2,7 +2,7 @@
 var expect = require('chai').expect;
 var UsersService = require('../usersService');
 describe('UsersService', function () {
-  describe('calculateUserScore', function () {
+  describe('calculateScore', function () {
     var service;
     beforeEach(function () {
       service = new UsersService({});
@@ -16,7 +16,7 @@ describe('UsersService', function () {
           {value: 3},
         ]
       };
-      expect(service.calculateUserScore(user)).to.equal(6);
+      expect(service.calculateScore(user)).to.equal(6);
     });
 
   });

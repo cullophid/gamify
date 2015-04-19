@@ -36,6 +36,7 @@ function service ($root, $q, $http) {
   }
 
   function getList () {
+    if (!$root.user) {return $q.reject('Session has no user');}
       return $http.get('/api/games?users=' + $root.user._id)
         .then(function (res) {
             return res.data;

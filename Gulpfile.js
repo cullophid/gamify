@@ -15,10 +15,17 @@ var PUBLICDIR = 'app/';
 
 // BUILD
 gulp.task('webpack', function () {
+  
+  var webpackConfig = {
+      devtool: "#inline-source-map",
+      module: {
+        loaders: [
+          { test: /\.jsx$/, loader: 'jsx-loader?harmony' }
+        ]
+      }
+    };
   return gulp.src(PUBLICDIR + 'js/main.js')
-    .pipe(webpack({
-      devtool: "#inline-source-map"
-    }))
+    .pipe(webpack(webpackConfig))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest(PUBLICDIR))
     .pipe(reload());

@@ -6,7 +6,7 @@ var request = require('supertest');
 
 describe('Session', function () {
   describe('POST /api/session/auth', function () {
-    it('should return a user if exists', function (done) {
+    it('should return a session with a user', function (done) {
       var body = {
         email: 'authUser@example.com'
       };
@@ -17,15 +17,10 @@ describe('Session', function () {
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function (res) {
-          var  user = res.body;
-          expect(user).to.have.keys([
-            '_id',
-            'email',
-            'firstname',
-            'lastname',
-            'tasks',
-            'achievements']);
-          expect(user).to.have.property('email', body.email.toLowerCase());
+          var session = res.body;
+          expect(session).to.have.keys(['user'])
+          expect(session.user).to.have.keys(['_id', 'email','firstname', 'lastname', 'tasks', 'achievements']);
+          expect(session.user).to.have.property('email', body.email.toLowerCase()); 
         })
         .end(done);
     });
@@ -41,9 +36,10 @@ describe('Session', function () {
         .expect('Content-Type', /json/)
         .expect(200)
         .expect(function (res) {
-          var  user = res.body;
-          expect(user).to.have.keys(['_id', 'email','firstname', 'lastname', 'tasks', 'achievements']);
-          expect(user).to.have.property('email', body.email.toLowerCase());
+          var  session = res.body;
+          expect(session).to.have.keys(['user'])
+          expect(session.user).to.have.keys(['_id', 'email','firstname', 'lastname', 'tasks', 'achievements']);
+          expect(session.user).to.have.property('email', body.email.toLowerCase());
         })
         .end(done);
     });

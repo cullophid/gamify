@@ -36,6 +36,10 @@
     "serve-favicon": "~2.2.0",
     "sinon": "^1.14.1",
     "supertest": "^0.15.0",
-    "swiper": "^3.0.6"
+    "swiper": "^3.0.6",
+    "react": "^0.13.2",
+    "react-router": "^0.13.2",
+    "gulp-jsx": "^0.10.0",
+    "gulp-react": "^3.0.1"
   }
 }

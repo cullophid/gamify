@@ -2,9 +2,9 @@
 var _ = require('lodash');
 
 // childProcess();
-console.log(objectIds());
 // lodash();
 // isObjectId();
+cloneNull();
 
 function childProcess () {
   var cp = require('child_process');
@@ -14,13 +14,8 @@ function childProcess () {
   },10000);
 }
 
-function  objectIds () {
-  var objectId = require('promised-mongo').ObjectId;
-  return _(_.range(10))
-    .map(function () {
-        return objectId();
-    })
-    .value();
+function cloneNull () {
+  console.log(_.clone(null));
 }
 
 function lodash () {

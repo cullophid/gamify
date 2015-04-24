@@ -9,6 +9,7 @@
   "newcap": true,
   "noarg": true,
   "node": true,
+  "browser": true,
   "nonew": true,
   "undef": true,
   "unused": false,

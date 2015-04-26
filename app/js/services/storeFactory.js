@@ -8,8 +8,8 @@ module.exports = function () {
   return {
     onChange: onChange,
     removeListener: removeListener,
-    _emitChange: emitChange,
-    _register: register
+    emitChange: emitChange,
+    register: register
   };
 
   function onChange (callback) {

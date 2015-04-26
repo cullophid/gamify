@@ -15,7 +15,7 @@ function get (url) {
         if (err) {
           return reject(err);
         }
-        return resolve(result);
+        return resolve(result.body);
       });
   });
 }
@@ -30,7 +30,7 @@ function post (url, data) {
         if (err) {
           return reject(err);
         }
-        return resolve(result);
+        return resolve(result.body);
       });
   });
 }

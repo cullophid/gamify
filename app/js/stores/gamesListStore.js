@@ -2,8 +2,9 @@
 var R = require('ramda');
 var http = require('../services/http');
 var store = require('../services/storeFactory')();
+var sessionStore = require('./sessionStore');
 
-var Session;
+var GamesList;
 module.exports = {
   onChange: store.onChange,
   removeListener: store.removeListener,
@@ -12,12 +13,12 @@ module.exports = {
 
 store.register(function (action) {
   switch (action.actionType) {
-    case 'UPDATE_SESSION':
+    case 'UPDATE_GAMESLIST':
       update();
     break;
 
-    case 'AUTHENTICATE_USER':
-      authenticate(action.credentials);
+    case 'SESSION_CHANGED':
+    update();
     break;
 
     default:
@@ -26,24 +27,16 @@ store.register(function (action) {
 });
 
 function update () {
-  return http.get('/api/session')
-    .then(function (res) {
-        Session = res.data;
-        return res.data;
-    })
-    .then(store.emitChange);
-}
-function authenticate (credentials) {
-  http.post('/api/session/auth', credentials)
+  return http.get('/api/games?users=' + sessionStore.get().user)
     .then(updateAndEmit);
 }
 
 function get () {
-  return R.clone(Session);
+  return R.clone(GamesList);
 }
 
-function updateAndEmit (session) {
-  Session = session;
+function updateAndEmit (games) {
+  GamesList = games;
   store.emitChange();
   return session;
 }

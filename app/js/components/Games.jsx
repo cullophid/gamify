@@ -1,6 +1,5 @@
 'use strict';
 var React = require('react');
-var Loginform = require('./LoginForm.jsx');
 var sessionStore = require("../stores/sessionStore");
 
 module.exports = React.createClass({
@@ -16,15 +15,11 @@ module.exports = React.createClass({
   },
   handleChange: function () {
 
-    var session = sessionStore.get();
-    if (session.hasOwnProperty('user')) {
-      this.context.router.transitionTo('/games')
-    }
   },
   render : function () {
     return (
-      <div className="full-screen flex">
-        <Loginform/>
+      <div className="">
+        <h1>Games</h1>
       </div>
     );
   }

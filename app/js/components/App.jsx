@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
-var Loginform = require('./LoginForm.jsx');
+var Router = require('react-router');
+var RouteHandler = Router.RouteHandler;
 var sessionStore = require("../stores/sessionStore");
 
 module.exports = React.createClass({
@@ -9,23 +10,20 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
     sessionStore.onChange(this.handleChange);
+    this.handleChange();
   },
 
   componentWillUnmount: function() {
     sessionStore.removeListener(this.handleChange);
   },
   handleChange: function () {
-
-    var session = sessionStore.get();
-    if (session.hasOwnProperty('user')) {
-      this.context.router.transitionTo('/games')
+    if (!sessionStore.get()) {
+      this.context.router.transitionTo('/login')
     }
   },
   render : function () {
     return (
-      <div className="full-screen flex">
-        <Loginform/>
-      </div>
+      <RouteHandler/>
     );
   }
 });

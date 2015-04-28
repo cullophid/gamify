@@ -9,7 +9,8 @@ module.exports = function () {
     onChange: onChange,
     removeListener: removeListener,
     emitChange: emitChange,
-    register: register
+    register: register,
+    waitFor: dispatcher.waitFor
   };
 
   function onChange (callback) {

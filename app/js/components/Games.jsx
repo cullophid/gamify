@@ -1,6 +1,7 @@
 'use strict';
 var React = require('react');
 var sessionStore = require("../stores/sessionStore");
+var gamesListStore = require("../stores/gamesListStore");
 
 module.exports = React.createClass({
   contextTypes: {

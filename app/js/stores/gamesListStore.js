@@ -1,6 +1,7 @@
 'use strict';
 var R = require('ramda');
-var http = require('../services/http');
+var dispatcher = require('../services/dispatcher');
+var gamesAPI = require('../services/gamesAPI');
 var store = require('../services/storeFactory')();
 var sessionStore = require('./sessionStore');
 
@@ -8,27 +9,23 @@ var GamesList;
 module.exports = {
   onChange: store.onChange,
   removeListener: store.removeListener,
-  get: get
+  get: get,
+  dispatchToken: store.register(actionHandler)
 };
-
-store.register(function (action) {
+function actionHandler (action) {
   switch (action.actionType) {
-    case 'UPDATE_GAMESLIST':
-      update();
-    break;
-
     case 'SESSION_CHANGED':
-    update();
-    break;
-
+      update();
+      break;
+    case 'GAMESLIST_CHANGED':
+      updateAndEmit(action.gamesList);
+      break;
     default:
   }
-
-});
+}
 
 function update () {
-  return http.get('/api/games?users=' + sessionStore.get().user)
-    .then(updateAndEmit);
+  gamesAPI.fetchGamesForUser(sessionStore.getUser());
 }
 
 function get () {
@@ -38,5 +35,4 @@ function get () {
 function updateAndEmit (games) {
   GamesList = games;
   store.emitChange();
-  return session;
 }

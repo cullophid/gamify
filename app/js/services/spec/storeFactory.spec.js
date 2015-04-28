@@ -13,7 +13,7 @@ describe('Services - storeFactory', function () {
   it('should register a callback when calling onChange', function () {
     var callback = sinon.spy();
     store.onChange(callback);
-    store._emitChange('test');
+    store.emitChange('test');
 
     expect(callback.calledOnce).to.equal(true);
     expect(callback.args[0][0]).to.equal('test');
@@ -24,14 +24,14 @@ describe('Services - storeFactory', function () {
     store.onChange(callback);
     store.removeListener(callback);
 
-    store._emitChange('test');
+    store.emitChange('test');
     expect(callback.calledOnce).to.equal(false);
   });
 
   it('should register with the dispatcher when calling _register', function () {
     var callback = sinon.spy();
     var action = {hello: 'world'};
-    store._register(callback);
+    store.register(callback);
     dispatcher.dispatch(action);
 
     expect(callback).to.have.property('calledOnce', true);

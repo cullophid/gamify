@@ -1,49 +1,47 @@
 'use strict';
 var R = require('ramda');
-var http = require('../services/http');
+var sessionAPI = require('../services/sessionAPI');
 var store = require('../services/storeFactory')();
+var gamesListStore = require('./gamesListStore');
 
 var Session;
 module.exports = {
   onChange: store.onChange,
   removeListener: store.removeListener,
-  get: get
+  get: get,
+  dispatchToken: store.register(actionHandler)
 };
 
-store.register(function (action) {
+function actionHandler (action) {
   switch (action.actionType) {
-    case 'UPDATE_SESSION':
-      update();
-    break;
-
-    case 'AUTHENTICATE_USER':
-      authenticate(action.credentials);
-    break;
-
+    case 'UPDATE_SESSION':    update(); break;
+    case 'AUTHENTICATE_USER': authenticate(action.credentials); break;
+    case 'SESSION_CHANGED':
+      store.waitFor([gamesListStore.dispatchToken]);
+      updateAndEmit(action.session); break;
     default:
   }
-
-});
+}
 
 function update () {
-  return http.get('/api/session')
-    .then(function (res) {
-        Session = res.data;
-        return res.data;
-    })
-    .then(store.emitChange);
+  sessionAPI.fetchSession();
 }
+
 function authenticate (credentials) {
-  http.post('/api/session/auth', credentials)
-    .then(updateAndEmit);
+  sessionAPI.authenticate(R.clone(credentials));
 }
 
 function get () {
   return R.clone(Session);
 }
+function getUser () {
+  if (!Session) {
+    return null;
+  }
+  return R.clone(Session.user);
+}
 
 function updateAndEmit (session) {
   Session = session;
   store.emitChange();
-  return session;
 }

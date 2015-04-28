@@ -4,7 +4,7 @@ var dispatcher = require('../services/dispatcher');
 var gamesAPI = require('../services/gamesAPI');
 var store = require('../services/storeFactory')();
 var sessionStore = require('./sessionStore');
-
+debugger;
 var GamesList;
 module.exports = {
   onChange: store.onChange,

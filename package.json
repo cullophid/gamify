@@ -44,6 +44,7 @@
     "sinon": "^1.14.1",
     "superagent": "^1.2.0",
     "supertest": "^0.15.0",
-    "swiper": "^3.0.6"
+    "swiper": "^3.0.6",
+    "gulp-serve": "^0.3.1"
   }
 }

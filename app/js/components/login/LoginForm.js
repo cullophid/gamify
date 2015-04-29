@@ -1,5 +1,5 @@
 'use strict';
-var dispatcher = require('../services/dispatcher');
+var dispatcher = require('../../services/dispatcher');
 var React = require('react');
 var R = require('ramda');
 
@@ -17,6 +17,7 @@ module.exports = React.createClass({
       </form>
     );
   },
+
   authenticate : function (e) {
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value;

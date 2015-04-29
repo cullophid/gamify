@@ -3,8 +3,7 @@ var R = require('ramda');
 var dispatcher = require('../services/dispatcher');
 var gamesAPI = require('../services/gamesAPI');
 var store = require('../services/storeFactory')();
-var sessionStore = require('./sessionStore');
-var GamesList;
+var Game;
 module.exports = {
   onChange: store.onChange,
   removeListener: store.removeListener,
@@ -13,25 +12,25 @@ module.exports = {
 };
 function actionHandler (action) {
   switch (action.actionType) {
-    case 'SESSION_CHANGED':
-      update();
+    case 'UPDATE_GAME':
+      update(action.gameId);
       break;
-    case 'GAMESLIST_CHANGED':
-      updateAndEmit(action.gamesList);
+    case 'GAME_CHANGED':
+      updateAndEmit(action.game);
       break;
     default:
   }
 }
 
-function update () {
-  gamesAPI.fetchGamesForUser(sessionStore.getUser());
+function update (gameId) {
+  gamesAPI.fetchGame(gameId);
 }
 
 function get () {
-  return R.clone(GamesList);
+  return R.clone(Game);
 }
 
-function updateAndEmit (games) {
-  GamesList = games;
+function updateAndEmit (game) {
+  Game = game;
   store.emitChange();
 }

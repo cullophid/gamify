@@ -1,1 +1,2 @@
-require('./components/Router.jsx');
+'use strict';
+var router = require('./components/Router');

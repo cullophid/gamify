@@ -15,12 +15,13 @@ var PUBLICDIR = 'app/';
 
 // BUILD
 gulp.task('webpack', function () {
-  
+
   var webpackConfig = {
       devtool: "#inline-source-map",
       module: {
         loaders: [
-          { test: /\.jsx$/, loader: 'jsx-loader?harmony' }
+          // { test: /\.jsx$/, exclude: /node_modules/, loader: 'jsx-loader' },
+          { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'}
         ]
       }
     };

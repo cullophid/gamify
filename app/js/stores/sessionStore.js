@@ -14,7 +14,6 @@ module.exports = {
   dispatchToken : register()
 };
 
-
 function register () {
   return store.register(function (action) {
     switch (action.actionType) {
@@ -23,11 +22,9 @@ function register () {
       case 'SESSION_CHANGED': updateAndEmit(action.session); break;
       default:
     }
-  
+
   });
 }
-
-
 
 function update () {
   sessionApi.fetchSession();
@@ -43,7 +40,7 @@ function get () {
 function getUser () {
   if (!Session) {
     return null;
-    
+
   }
   return R.clone(Session.user);
 }

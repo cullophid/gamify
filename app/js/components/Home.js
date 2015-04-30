@@ -11,9 +11,11 @@ module.exports = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
+
   getInitialState: function () {
     return {session: sessionStore.get()};
   },
+
   componentDidMount: function() {
     sessionStore.onChange(this.handleChange);
     this.handleChange();
@@ -22,6 +24,7 @@ module.exports = React.createClass({
   componentWillUnmount: function() {
     sessionStore.removeListener(this.handleChange);
   },
+  
   handleChange: function () {
     if (!sessionStore.get()) {
       this.context.router.transitionTo('/login');

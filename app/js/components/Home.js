@@ -1,9 +1,11 @@
 'use strict';
+var R = require('ramda');
 var React = require('react');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var SideBar = require('./sidebar').SideBar;
 var sessionStore = require('../stores/sessionStore');
+var userScoreStore = require('../stores/userScoreStore');
 
 module.exports = React.createClass({
   contextTypes: {
@@ -24,14 +26,15 @@ module.exports = React.createClass({
     if (!sessionStore.get()) {
       this.context.router.transitionTo('/login');
     }
-    this.setState({session: sessionStore.get()});
+    var user = R.merge(sessionStore.getUser(), {score: userScoreStore.get()});
+    this.setState(user);
   },
   render : function () {
-    var session = this.state.session || {};
+    var user = this.state.user || {};
     return (
       <div className="full-height">
         <aside className="col-sm-3 full-height-sm  bg-dark fixed">
-          <SideBar user={session.user}/>
+          <SideBar user={user}/>
         </aside>
         <div className="col-sm-9 scroll full-height">
           <RouteHandler/>

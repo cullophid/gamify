@@ -7,6 +7,8 @@ module.exports = function (router) {
   router.post('/session/auth', function (req, res, next) {
     session.auth(req.body)
       .then(function (user) {
+        console.log('AUTH');
+        console.log(req.session);
         req.session.userId = user._id;
         return res.send({user: user});
       })

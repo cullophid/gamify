@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var api = require('./api');
 var session = require('express-session');
-
+var redis = require('./services/redis');
+var RedisStore = require('connect-redis')(session);
+var sessionStore = new RedisStore({client : redis, prefix : 'session'});
 var app = express();
 
 // uncomment after placing your favicon in /public
@@ -15,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
-app.use(session({ secret: '55341abb08d7591becd878de'}));
+app.use(session({store : sessionStore, secret: 'alskjdflakjd'}));
 
 // load the api routes
 app.use('/api', api(express.Router()));

@@ -7,7 +7,7 @@ module.exports = React.createClass({
     router: React.PropTypes.func
   },
   render : function () {
-    var user = this.props.user || {};
+    var user = this.props.user;
     return (
       <div className="v-gutter">
         <div  className="row media container-fluid">
@@ -15,7 +15,7 @@ module.exports = React.createClass({
             <div className="glyphicon glyphicon-user glyphicon-large"></div>
           </div>
           <div className="media-body">
-            <span className="h4">{user.firstname + ' ' + user.lastname}</span>
+            <span className="h4">{user.firstname} {user.lastname}</span>
             <p>{user.score}</p>
           </div>
         </div>

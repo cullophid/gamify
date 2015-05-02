@@ -34,7 +34,7 @@ module.exports = React.createClass({
     if (!sessionStore.getUser()) {
       this.context.router.transitionTo('/login');
     }
-    this.setState(sessionStore.getUser());
+    this.setState({user: sessionStore.getUser()});
   },
   render : function () {
     var user = this.state.user || {};

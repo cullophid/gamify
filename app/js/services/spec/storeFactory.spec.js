@@ -1,8 +1,8 @@
 'use strict';
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var storeFactory = require('../storeFactory');
-var dispatcher = require('../dispatcher');
+import {expect} from 'chai';
+import sinon from 'sinon';
+import storeFactory from '../storeFactory';
+import dispatcher from '../dispatcher';
 describe('Services - storeFactory', function () {
   var store;
 

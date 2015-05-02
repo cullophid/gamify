@@ -1,2 +1,2 @@
 'use strict';
-var router = require('./components/Router');
+import router from './components/Router';

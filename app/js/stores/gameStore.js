@@ -3,13 +3,16 @@ var R = require('ramda');
 var dispatcher = require('../services/dispatcher');
 var gamesAPI = require('../services/gamesAPI');
 var store = require('../services/storeFactory')();
+
 var Game;
+
 module.exports = {
   onChange: store.onChange,
   removeListener: store.removeListener,
   get: get,
   dispatchToken: store.register(actionHandler)
 };
+
 function actionHandler (action) {
   switch (action.actionType) {
     case 'UPDATE_GAME':

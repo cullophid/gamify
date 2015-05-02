@@ -2,7 +2,6 @@
 //modules
 var gulp = require('gulp');
 var webpack = require('gulp-webpack');
-var webpack = require('gulp-webpack');
 var rename = require('gulp-rename');
 var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
@@ -10,6 +9,8 @@ var reload = require('gulp-livereload');
 var server = require('./server');
 var mocha = require('gulp-spawn-mocha');
 var mongo = require('./services/mongo');
+var shell = require('gulp-shell');
+require('babel/register');
 //constants
 var PUBLICDIR = 'app/';
 
@@ -30,7 +31,6 @@ gulp.task('webpack', function () {
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest(PUBLICDIR))
     .pipe(reload());
-
 });
 
 gulp.task('less', function () {
@@ -55,7 +55,9 @@ gulp.task('spec',function () {
       'services/**/spec/**/*.js',
       'api/**/spec/**/*.js'
       ])
-      .pipe(mocha({reporter: 'dot'}));
+      .pipe(mocha({
+        reporter: 'dot',
+        compilers: 'js:babel/register'}));
 });
 gulp.task('resttest', function () {
   return gulp.src(['test/setup.js','test/**/*.js'])
@@ -75,10 +77,8 @@ gulp.task('cleanDB', function (done) {
       done();
     });
 });
-
-// RUN
 gulp.task('run', ['build'], function () {
-  server.listen(process.env.PORT || 3000);
+  return server.listen(3000);
 });
 
 gulp.task('watch', ['run'], function () {

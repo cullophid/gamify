@@ -6,10 +6,8 @@ var rename = require('gulp-rename');
 var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
 var reload = require('gulp-livereload');
-var server = require('./server');
 var mocha = require('gulp-spawn-mocha');
-var mongo = require('./services/mongo');
-var shell = require('gulp-shell');
+var run = require('gulp-run');
 require('babel/register');
 //constants
 var PUBLICDIR = 'app/';
@@ -57,28 +55,23 @@ gulp.task('spec',function () {
       ])
       .pipe(mocha({
         reporter: 'dot',
-        compilers: 'js:babel/register'}));
+        compilers: 'js:babel/register'
+      }));
 });
 gulp.task('resttest', function () {
   return gulp.src(['test/setup.js','test/**/*.js'])
-    .pipe(mocha({reporter: 'dot'}));
+    .pipe(mocha({
+      reporter: 'dot',
+      compilers: 'js:babel/register'
+    }));
 });
 gulp.task('test', ['spec', 'resttest']);
 
-
-gulp.task('cleanDB', function (done) {
-  mongo
-    .collection('users')
-    .remove({email: {$regex: /\@example\.com/}});
-  mongo
-    .collection('games')
-    .remove({name: 'Test Game'})
-    .then(function () {
-      done();
-    });
-});
-gulp.task('run', ['build'], function () {
-  return server.listen(3000);
+gulp.task('run', ['build'], function (done) {
+  done();
+  run('node node_modules/.bin/babel-node bin/www').exec()
+    .pipe(rename('server.log'))
+    .pipe(gulp.dest('logs'));
 });
 
 gulp.task('watch', ['run'], function () {

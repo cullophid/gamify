@@ -1,6 +1,11 @@
 'use strict';
-var mongo = require('../../services/mongo');
-exports.processParams = function (req, res, next) {
-  req.params = mongo.utils.convertPropertiesToObjectId(req.params, '_id');
+import R from 'ramda';
+import {objectId} from '../../services/mongo';
+export function processParams (req, res, next) {
+  req.params = R.pipe(
+    R.always(req.params),
+    R.clone,
+    R.assoc('_id', objectId(req.params._id))
+  )();
   next();
 }

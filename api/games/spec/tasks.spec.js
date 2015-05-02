@@ -1,7 +1,7 @@
 'use strict';
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var tasks = require('../tasks');
+import {expect} from 'chai';
+import sinon from 'sinon';
+import {prepareForInsert} from '../tasks';
 describe('tasks', function () {
   describe('prepareForInsert', function () {
     it('should return a mongo insert object', function () {
@@ -10,8 +10,7 @@ describe('tasks', function () {
         description: 'description',
         value: 10
       };
-      var result = tasks._prepareForInsert(task);
-
+      var result = prepareForInsert(task);
       expect(result).to.have.keys('$push');
       expect(result.$push).to.have.keys('tasks');
       expect(result.$push.tasks).to.have.keys('name', 'description', 'value', '_id');

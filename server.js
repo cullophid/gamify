@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.get('env') === 'develop' || app.get('env') === 'testing') {
     app.use(function(err, req, res, next) {
         console.log(err.stack);
         res.status(err.status || 500);

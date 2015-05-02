@@ -1,10 +1,10 @@
 'use strict';
-var _ = require('lodash');
-var games = require('./index');
-var middleware = require('./middleware');
+import * as games from './index';
+import middleware from './middleware';
+console.log('GAMES');
+console.log(games);
 
-
-module.exports = function (router) {
+export default function (router) {
   router.post('/games/:_id/tasks', [middleware.processParams], function (req, res, next) {
     games.createTask(req.params, req.body)
       .then(function (game) {

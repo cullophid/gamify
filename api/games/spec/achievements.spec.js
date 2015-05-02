@@ -1,7 +1,8 @@
 'use strict';
-var expect = require('chai').expect;
-var sinon = require('sinon');
-var achievements = require('../achievements');
+import {expect} from 'chai';
+import sinon from 'sinon';
+import {prepareForInsert} from '../achievements';
+
 describe('achievements', function () {
   describe('prepareForInsert', function () {
     it('should return a mongo insert object', function () {
@@ -11,7 +12,7 @@ describe('achievements', function () {
         task : '5533fd9084375622e2faf89d',
         value: 10
       };
-      var result = achievements._prepareForInsert(achievement);
+      var result = prepareForInsert(achievement);
 
       expect(result).to.have.keys('$push');
       expect(result.$push).to.have.keys('achievements');

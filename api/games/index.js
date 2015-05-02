@@ -1,9 +1,13 @@
 'use strict';
-exports._router = require('./router');
+import router from './router';
+import {find, findOne} from './find';
+import {create} from './create';
+import {createTask} from './tasks';
+import {createAchievement} from './achievements';
 
-exports.find = require('./find').find;
-exports.findOne = require('./find').findOne;
-exports.create = require('./create').create;
-
-exports.createTask = require('./tasks').createTask;
-exports.createAchievement = require('./achievements').createAchievement;
+export {router as _router};
+export {find};
+export {findOne};
+export {create};
+export {createTask};
+export {createAchievement};

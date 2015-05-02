@@ -3,11 +3,11 @@ var http = require('./http');
 var dispatcher = require('./dispatcher');
 
 module.exports = {
-  getSession: getSession,
+  fetchSession: fetchSession,
   authenticate: authenticate
 };
 
-function getSession () {
+function fetchSession () {
   return http.get('/api/session')
     .then(dispatchChangeAction);
 }

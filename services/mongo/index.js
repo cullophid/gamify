@@ -1,10 +1,12 @@
 'use strict';
-var config = require('config');
-var _ = require('lodash');
-var pmongo = require('promised-mongo');
+import config from 'config';
+import pmongo from 'promised-mongo';
 
-console.log('ENV: ' + process.env.NODE_ENV);
-console.log('MONGODB: ' + config.mongoURI);
-module.exports = pmongo(config.mongoURI);
-module.exports.objectId = pmongo.ObjectId;
-module.exports.utils = require('./utils');
+let mongo = pmongo(config.mongoURI);
+
+export function collection (name) {
+  return mongo.collection(name);
+}
+export function objectId (id) {
+  return new pmongo.ObjectId(id);
+}

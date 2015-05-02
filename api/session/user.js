@@ -1,7 +1,10 @@
 'use strict';
-var _ = require('lodash');
-var usersCollection = require('../../services/mongo').collection('users');
+import R from 'ramda';
+import {collection} from '../../services/mongo';
 
-exports.findOne = function (query) {
+let usersCollection = collection('users');
+
+export function findOne (query) {
+  console.log(query);
   return usersCollection.findOne(query);
-};
+}

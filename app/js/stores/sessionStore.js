@@ -17,7 +17,7 @@ module.exports = {
 function register () {
   return store.register(function (action) {
     switch (action.actionType) {
-      case 'UPDATE_SESSION': update(); break;
+      case 'FETCH_SESSION': fetch(); break;
       case 'AUTHENTICATE_USER': authenticate(action.credentials); break;
       case 'SESSION_CHANGED': updateAndEmit(action.session); break;
       default:
@@ -26,7 +26,7 @@ function register () {
   });
 }
 
-function update () {
+function fetch () {
   sessionApi.fetchSession();
 }
 function authenticate (credentials) {

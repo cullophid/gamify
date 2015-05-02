@@ -5,7 +5,7 @@ var usersCollection = require('../../services/mongo').collection('users');
 var defaults = {
   firstname : "",
   lastname: "",
-  tasks: []  
+  tasks: []
 };
 module.exports = function (user) {
   return usersCollection.insert(_.defaults(user, defaults));

@@ -1,10 +1,12 @@
 'use strict';
-var gamesCollection = require('../../services/mongo').collection('games');
-exports.find = function (query) {
+import {collection} from '../../services/mongo';
+let gamesCollection = collection('games');
+
+export function find (query) {
   return gamesCollection.find(query)
     .toArray();
-};
+}
 
-exports.findOne = function  (query) {
+export function findOne (query) {
   return gamesCollection.findOne(query);
-};
+}

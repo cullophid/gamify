@@ -8,11 +8,9 @@ pids
 *.seed
 
 #build
-www/templates/
-www/bundle.js
-www/style.css
-www/index.html
 
+#logs
+logs/
 #local config
 config/local*
 

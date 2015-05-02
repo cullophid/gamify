@@ -1,4 +1,5 @@
 'use strict';
+import dispatcher from '../services/dispatcher';
 var R = require('ramda');
 var React = require('react');
 var Router = require('react-router');
@@ -18,7 +19,11 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     sessionStore.onChange(this.handleChange);
-    this.handleChange();
+    if (!sessionStore.get()) {
+      dispatcher.dispatch({
+        actionType: 'FETCH_SESSION'
+      });
+    }
   },
 
   componentWillUnmount: function() {
@@ -26,7 +31,7 @@ module.exports = React.createClass({
   },
 
   handleChange: function () {
-    if (!sessionStore.get()) {
+    if (!sessionStore.getUser()) {
       this.context.router.transitionTo('/login');
     }
     this.setState(sessionStore.getUser());

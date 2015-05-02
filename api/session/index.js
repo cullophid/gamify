@@ -1,5 +1,8 @@
 'use strict';
+import {findOne} from './user';
+import {auth} from './auth';
+import router from './router';
 
-exports._router = require('./router');
-
-exports.auth = require('./auth').auth;
+export { router as _router};
+export { auth as auth};
+export { findOne as getUser};

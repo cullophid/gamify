@@ -1,31 +1,26 @@
 'use strict';
-var _ = require('lodash');
-var mongo = require('../../services/mongo');
-var objectId = mongo.objectId;
-var gamesCollection = mongo.collection('games');
-var gameDefaults = {
+import R from 'ramda';
+import {collection, objectId} from '../../services/mongo';
+let gamesCollection = collection('games');
+let gameDefaults = {
   tasks:[],
   achievements: [],
   description : "",
   users: []
 };
 
-exports.create = function (game) {
+export function create (game) {
   return gamesCollection.insert(prepGameForInsert(game))
     .then(function (game) {
-      return gamesCollection.findOne(_.pick(game, '_id'))
+      return gamesCollection.findOne(R.pick(['_id'], game))
         .then(function (game) {
           return game;
         });
     });
-};
-exports._prepGameForInsert = prepGameForInsert;
-function prepGameForInsert (game) {
-  return _(game)
-    .pick('users')
-    .mapValues(function (users) {
-      return _.map(users, objectId);
-    })
-    .defaults(game, gameDefaults)
-    .value();
+}
+
+export function prepGameForInsert (game) {
+  game = R.clone(game);
+  game.users = R.map(objectId, game.users);
+  return R.merge(gameDefaults, game);
 }

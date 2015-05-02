@@ -1,16 +1,22 @@
 'use strict';
-var _ = require('lodash');
-var mongo = require('../../services/mongo');
-var gamesCollection = mongo.collection('games');
+import R from 'ramda';
+import {collection, objectId} from'../../services/mongo';
+let gamesCollection = collection('games');
 
-var prepareForInsert = _.flow(
-  mongo.utils.addId,
-  _.partialRight(mongo.utils.convertPropertiesToObjectId, 'task'), _.partialRight(mongo.utils.createPushStatement,'achievements'));
-exports._prepareForInsert = prepareForInsert;
-
-exports.createAchievement = function  (game, achievement) {
+export function createAchievement (game, achievement) {
   return gamesCollection.update(game, prepareForInsert(achievement))
     .then(function () {
       return gamesCollection.findOne(game);
     });
-};
+}
+
+export function prepareForInsert (achievement) {
+  return R.pipe(
+    R.always(achievement),
+    R.clone,
+    R.assoc('_id', objectId()),
+    R.assoc('task', objectId(achievement.task)),
+    R.createMapEntry('achievements'),
+    R.createMapEntry('$push')
+  )();
+}

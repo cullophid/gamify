@@ -1,14 +1,20 @@
 'use strict';
-var _ = require('lodash');
-var mongo = require('../../services/mongo');
-var gamesCollection = mongo.collection('games');
+import R from 'ramda';
+import {collection, objectId} from '../../services/mongo';
+let gamesCollection = collection('games');
 
-var prepareForInsert = _.flow(mongo.utils.addId, _.partialRight(mongo.utils.createPushStatement,'tasks'));
-exports._prepareForInsert = prepareForInsert;
-
-exports.createTask = function  (game, task) {
+export function createTask (game, task) {
   return gamesCollection.update(game, prepareForInsert(task))
     .then(function () {
       return gamesCollection.findOne(game);
     });
-};
+}
+
+export function prepareForInsert (task) {
+  return R.pipe(
+    R.always(task),
+    R.assoc('_id', objectId()),
+    R.createMapEntry('tasks'),
+    R.createMapEntry('$push')
+  )();
+}

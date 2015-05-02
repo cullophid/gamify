@@ -29,6 +29,7 @@ function register () {
 }
 
 function update () {
+  return;
   store.waitFor([sessionStore.dispatchToken, gameStore.dispatchToken]);
   updateAndEmit();
 }

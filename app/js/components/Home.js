@@ -13,7 +13,7 @@ module.exports = React.createClass({
   },
 
   getInitialState: function () {
-    return {session: sessionStore.get()};
+    return {user: sessionStore.getUser()};
   },
 
   componentDidMount: function() {
@@ -24,13 +24,12 @@ module.exports = React.createClass({
   componentWillUnmount: function() {
     sessionStore.removeListener(this.handleChange);
   },
-  
+
   handleChange: function () {
     if (!sessionStore.get()) {
       this.context.router.transitionTo('/login');
     }
-    var user = R.merge(sessionStore.getUser(), {score: userScoreStore.get()});
-    this.setState(user);
+    this.setState(sessionStore.getUser());
   },
   render : function () {
     var user = this.state.user || {};

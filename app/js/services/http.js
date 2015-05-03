@@ -1,12 +1,12 @@
 'use strict';
-var request = require('superagent');
+import R from 'ramda';
+import request from 'superagent';
 
-module.exports = {
-  get: get,
-  post: post
-};
 
-function get (url) {
+export let get = R.curry(_get);
+export let post = R.curry(_post);
+
+function _get (url) {
   return new Promise(function (resolve, reject) {
     request
       .get(url)
@@ -20,7 +20,7 @@ function get (url) {
   });
 }
 
-function post (url, data) {
+function _post (url, data) {
   return new Promise(function (resolve, reject) {
     request
       .post(url)

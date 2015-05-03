@@ -1,9 +1,10 @@
 'use strict';
-var R = require('ramda');
-var React = require('react');
-var Link = require('react-router').Link;
-var GamesList = require('./GamesList');
-var gamesListStore = require('../../stores/gamesListStore');
+import R from 'ramda';
+import React from 'react';
+import {Link} from 'react-router';
+import GamesList from './GamesList';
+import * as gamesListStore from '../../stores/gamesListStore';
+import NewGameForm from './NewGameForm';
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -29,9 +30,10 @@ module.exports = React.createClass({
         <h1>Games</h1>
         <div className="container">
           <div className="col-md-8 col-md-offset-2">
-          <ul className="list-group">
-            {R.map(renderGame, gamesList)}
-          </ul>
+            <ul className="list-group">
+              {R.map(renderGame, gamesList)}
+            </ul>
+            <NewGameForm/>
           </div>
         </div>
       </div>

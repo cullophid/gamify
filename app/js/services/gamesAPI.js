@@ -1,13 +1,10 @@
 'use strict';
-var http = require('./http');
-var dispatcher = require('./dispatcher');
+import R from 'ramda';
+import * as http from './http';
+import dispatcher from './dispatcher';
 
-module.exports = {
-  fetchGamesForUser: fetchGamesForUser,
-  fetchGame: fetchGame
-};
 
-function fetchGamesForUser (user) {
+export function fetchGamesForUser (user) {
   if (!user) {
     return;
   }
@@ -15,9 +12,22 @@ function fetchGamesForUser (user) {
     .then(dispatchGamesListChangeAction);
 }
 
-function fetchGame (gameId) {
+export function fetchGame (gameId) {
   http.get('/api/games/' + gameId)
     .then(dispatchGameChangeAction);
+}
+export function createGame (game, user) {
+  Promise.resolve(game)
+    .then(addUserToGame(user))
+    .then(http.post('/api/games'))
+    .then(R.always(user))
+    .then(fetchGamesForUser);
+
+  function addUserToGame (user) {
+    return function (game) {
+      return R.assoc('users', [user._id], game);
+    };
+  }
 }
 
 function dispatchGamesListChangeAction (games) {

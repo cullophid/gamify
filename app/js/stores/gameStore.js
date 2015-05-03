@@ -1,17 +1,16 @@
 'use strict';
-var R = require('ramda');
-var dispatcher = require('../services/dispatcher');
-var gamesAPI = require('../services/gamesAPI');
-var store = require('../services/storeFactory')();
+import R from 'ramda';
+import dispatcher from '../services/dispatcher';
+import * as gamesAPI from '../services/gamesAPI';
+import storeFactory from '../services/storeFactory';
 
-var Game;
+let store = storeFactory();
+let Game;
 
-module.exports = {
-  onChange: store.onChange,
-  removeListener: store.removeListener,
-  get: get,
-  dispatchToken: store.register(actionHandler)
-};
+export let onChange = store.onChange;
+export let removeListener = store.removeListener;
+export {get};
+export let dispatToken = store.register(actionHandler);
 
 function actionHandler (action) {
   switch (action.actionType) {

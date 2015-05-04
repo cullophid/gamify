@@ -1,7 +1,7 @@
 'use strict';
 import R from 'ramda';
 import dispatcher from '../services/dispatcher';
-import * as gamesAPI from '../services/gamesAPI';
+import {fetchGame, createTask} from '../services/gamesAPI';
 import storeFactory from '../services/storeFactory';
 
 let store = storeFactory();
@@ -15,18 +15,18 @@ export let dispatToken = store.register(actionHandler);
 function actionHandler (action) {
   switch (action.actionType) {
     case 'UPDATE_GAME':
-      update(action.gameId);
+      fetchGame(action.gameId);
       break;
     case 'GAME_CHANGED':
       updateAndEmit(action.game);
+      break;
+    case 'CREATE_TASK':
+      createTask(Game, action.task);
       break;
     default:
   }
 }
 
-function update (gameId) {
-  gamesAPI.fetchGame(gameId);
-}
 
 function get () {
   return R.clone(Game);

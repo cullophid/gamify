@@ -1,21 +1,22 @@
 'use strict';
-var React = require('react');
-var R = require('ramda');
-var dispatcher = require('../../services/dispatcher');
+import React from 'react';
+import R from 'ramda';
+import dispatcher from '../../services/dispatcher';
+import NewTaskForm from './NewTaskForm';
 
-module.exports = React.createClass({
+export default React.createClass({
   render : function () {
     var tasks = this.props.tasks;
     return (
       <div className="col-md-8 col-md-offset-2 clearfix">
-        <ul>
+        <ul className="list-group">
           {R.map(renderTask, tasks || [])}
         </ul>
+        <NewTaskForm/>
         </div>
     );
   }
 });
-
 
 function renderTask (task) {
   return (

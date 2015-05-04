@@ -30,6 +30,11 @@ export function createGame (game, user) {
   }
 }
 
+export function createTask (game, task) {
+  http.post(`/api/games/${game._id}/tasks`, task)
+    .then(dispatchGameChangeAction);
+};
+
 function dispatchGamesListChangeAction (games) {
   dispatcher.dispatch({
     actionType: 'GAMESLIST_CHANGED',
